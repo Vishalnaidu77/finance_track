@@ -1,0 +1,225 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Finance Tracker</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="./Css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <style>
+        .glass {
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(8px);
+            border-radius: 1.25rem;
+        }
+        .glow {
+            box-shadow: 0 0 16px 2px #1de9b6aa, 0 0 32px 4px #31a2fd55;
+        }
+        </style>
+    </head>
+
+    <body class="bg-[#091223] text-white font-sans" style="min-height: 100vh;">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-6">
+            <!-- Header -->
+            <div class="dashboard-navbar p-4 flex fixed sm:relative items-center z-50 justify-between sm:mb-4">
+                <h1 class="text-3xl mr-[53px] sm:text-4xl font-extrabold text-white tracking-tight drop-shadow-lg">Dashboard</h1>
+                <button class="add-transaction-btn bg-gradient-to-r from-[#1de9b6] to-[#31a2fd] text-white px-2 text-xs sm:text-[17px] sm:px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition glass hover:shadow-cyan-400/40">
+                    <svg class="inline-block w-5 h-5 mr-0 sm:mr-2 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+                    Add Transaction
+                </button>
+            </div>
+
+            <!-- Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 sm:mt-0 mb-10">
+                <!-- Balance Card -->
+                <div class="glass p-6 flex flex-col items-start">
+                    <div class="flex items-center gap-2 text-blue-300 text-sm mb-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Balance
+                    </div>
+                    <div id="balance-amount" class="text-2xl font-bold text-white mt-1">₹0</div>
+                </div>
+                <!-- Income Card -->
+                <div class="glass p-6 flex flex-col items-start">
+                    <div class="flex items-center gap-2 text-green-300 text-sm mb-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5m-7 7h14"/></svg>
+                    Income
+                    </div>
+                    <div id="income-amount" class="text-2xl font-bold text-green-400 mt-1">+₹0</div>
+                </div>
+                <!-- Expenses Card -->
+                <div class="glass p-6 flex flex-col items-start">
+                    <div class="flex items-center gap-2 text-red-300 text-sm mb-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14m7-7H5"/></svg>
+                    Expenses
+                    </div>
+                    <div id="expense-amount" class="text-2xl font-bold text-red-400 mt-1">-₹0</div>
+                </div>
+            </div>
+        
+
+            <!-- Hero section -->
+            <div class="dashboard-hero-section flex flex-col lg:flex-row w-full justify-between gap-6">
+                <!-- Interactive Charts Section -->
+                <div class="chart-section w-full lg:w-3/5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                        <!-- Bar Chart Card -->
+                        <div class="glass p-6 flex flex-col items-center hover:scale-[1.03] transition">
+                            <div class="flex flex-col items-center mb-2">
+                            <span class="text-cyan-400 text-xl font-semibold flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="8"/><rect x="9" y="8" width="4" height="12"/><rect x="15" y="4" width="4" height="16"/></svg>
+                                Monthly Income
+                            </span>
+                            <span class="text-xs text-cyan-200">Track your monthly earnings</span>
+                            </div>
+                            <canvas id="barChart" class="w-full h-48"></canvas>
+                        </div>
+                        <!-- Line Chart Card -->
+                        <div class="glass p-6 flex flex-col items-center hover:scale-[1.03] transition">
+                            <div class="flex flex-col items-center mb-2">
+                            <span class="text-green-400 text-xl font-semibold flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="4 14 10 10 14 14 20 8"/></svg>
+                                Expense Trend
+                            </span>
+                            <span class="text-xs text-green-200">Visualize your spending pattern</span>
+                            </div>
+                            <canvas id="lineChart" class="w-full h-48"></canvas>
+                        </div>
+                    </div>
+            
+                    <!-- Pie Chart Section - Full Width -->
+                    <div class="mt-7 w-full">
+                        <!-- Pie Chart Card -->
+                        <div class="glass p-6 hover:scale-[1.02] transition">
+                            <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-24">
+                                <div class="flex flex-col items-center lg:items-start mb-4 lg:mb-0">
+                                    <span class="text-pink-400 text-xl font-semibold flex items-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v10l6 6"/></svg>
+                                        Income vs Expense
+                                    </span>
+                                    <span class="text-xs text-pink-200">Compare your income and expenses</span>
+                                </div>
+                                <div class="flex-1 flex justify-center lg:justify-start">
+                                    <canvas id="pieChart" class="w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56"></canvas>
+                                </div>
+                                <div id="pieLegend" class="flex-1 flex justify-center lg:justify-end items-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="transaction-filter-section flex flex-col w-full lg:w-[50%]">
+
+                    <!-- Filter section  -->
+                    <div class="filter-section mb-4 p-6 glass w-full bg-[#10172a] backdrop-blur-md rounded-xl h-auto shadow-md">
+                        <h3 class="text-lg font-semibold mb-4">Filter Transactions</h3>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col md:flex-row gap-4">
+                                <!-- Type Filter -->
+                                <div class="flex-1">
+                                    <label for="filter-type" class="block text-sm font-medium text-blue-200 mb-1">Transaction Type</label>
+                                    <select id="filter-type" class="filter-select w-full p-2 rounded-lg bg-[#263859] text-white border border-[#3a4a6b] focus:border-blue-400 focus:ring-blue-400">
+                                        <option value="all">All Types</option>
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
+                                    </select>
+                                </div>
+                                <!-- Date Range Filter -->
+                                <div class="flex-1">
+                                    <label for="filter-date" class="block text-sm font-medium text-blue-200 mb-1">Date Range</label>
+                                    <select id="filter-date" class="filter-select w-full p-2 rounded-lg bg-[#263859] text-white border border-[#3a4a6b] focus:border-blue-400 focus:ring-blue-400">
+                                        <option value="all">All Time</option>
+                                        <option value="today">Today</option>
+                                        <option value="week">This Week</option>
+                                        <option value="month">This Month</option>
+                                        <option value="year">This Year</option>
+                                        <option value="custom">Custom Range</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="custom-date-range" class="flex flex-col md:flex-row gap-4 ">
+                                <div class="flex-1">
+                                    <label for="start-date" class="block text-sm font-medium text-blue-200 mb-1">Start Date</label>
+                                    <input type="date" id="start-date" class="filter-input w-full p-2 rounded-lg bg-[#263859] text-white border border-[#3a4a6b] focus:border-blue-400 focus:ring-blue-400">
+                                </div>
+                                <div class="flex-1">
+                                    <label for="end-date" class="block text-sm font-medium text-blue-200 mb-1">End Date</label>
+                                    <input type="date" id="end-date" class="filter-input w-full p-2 rounded-lg bg-[#263859] text-white border border-[#3a4a6b] focus:border-blue-400 focus:ring-blue-400">
+                                </div>
+                            </div>
+                            <!-- Filter Buttons -->
+                            <div class="flex items-end gap-3">
+                                <button id="apply-filter" class="px-6 py-2 rounded-full text-white shadow-lg mt-2 bg-gradient-to-r from-[#1de9b6] to-[#31a2fd] hover:scale-105 transition">
+                                    Apply Filter
+                                </button>
+                                <button id="reset-filter" class="px-6 py-2 rounded-full text-white shadow-lg mt-2 bg-gradient-to-r from-[#ff6b6b] to-[#ee5a52] hover:scale-105 transition">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transaction list  -->
+                    <div class="transactionListDiv glass bg-[#10172a] backdrop-blur-md rounded-xl w-full sm:h-52 p-6 shadow-lg mt-6 lg:mt-0">
+                        <div class="text-lg font-semibold text-white mb-4 sm:mb-2 flex justify-between">
+                            <h2>Recent Transactions</h2>
+                            <button class="expand-btn hover:scale-125 duration-100">
+                                <svg class="h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5858 5H14V3H21V10H19V6.41421L14.7071 10.7071L13.2929 9.29289L17.5858 5ZM3 14H5V17.5858L9.29289 13.2929L10.7071 14.7071L6.41421 19H10V21H3V14Z"></path></svg>
+                            </button>
+                        </div>
+                        <div id="transaction-list" class="divide-y divide-blue-800 overflow-y-auto h-[105px] sm:h-32">
+                            <!-- Transaction list will go here -->
+                        </div>
+                    </div>
+
+                    <div class="transaction-overlay"></div>
+
+                </div>
+
+                <div class="transaction-overlay"></div>
+
+            </div>
+
+            </div>
+
+            <!-- Add Transaction Form -->
+            <div class="transaction-form-div glass glow w-[80%] w-[50%] sm:w-[80%] md:w-[60%] lg:w-[25%] rounded-xl backdrop-blur-md shadow-xl fixed sm:absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-4 sm:p-8 text-white z-50">
+                <div class="text-xl flex justify-between items-center mb-8 font-semibold">
+                    Add New Transactions
+                    <svg class="close-form h-6 cursor-pointer text-white hover:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"/>
+                    </svg>
+                </div>
+
+                <form id="transaction-form" class="flex flex-col gap-4">
+                    <input id="description" type="text" placeholder="Description" class="glass text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input id="amount" type="number" placeholder="Amount" class="glass text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <div class="relative">
+                        <select id="type" class="glass text-white rounded-lg px-4 py-2 pr-10 w-full focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none">
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                        <div class="arrow pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <input id="date" type="date" class="glass w-full text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button id="submitBtn" type="submit" class="bg-gradient-to-r from-[#1de9b6] to-[#31a2fd] text-white px-4 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition mt-2">
+                        Add
+                    </button>
+                </form>
+            </div>
+
+        
+        </div>
+
+        <script src="dashboard.js"></script>
+    </body>
+    </html>
