@@ -25,16 +25,31 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-20 py-6">
             <!-- Header -->
-            <div class="dashboard-navbar p-4 flex fixed sm:relative items-center z-50 justify-between sm:mb-4">
-                <h1 class="text-3xl mr-[53px] sm:text-4xl font-extrabold text-white tracking-tight drop-shadow-lg">Dashboard</h1>
-                <button class="add-transaction-btn bg-gradient-to-r from-[#1de9b6] to-[#31a2fd] text-white px-2 text-xs sm:text-[14px] sm:px-4 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition glass hover:shadow-cyan-400/40">
-                    <svg class="inline-block w-5 h-5 mr-0 sm:mr-2 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
-                    Add Transaction
-                </button>
+            <div class="dashboard-navbar w-full glass backdrop-blur-sm sticky top-0 z-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between h-16 sm:h-20">
+                        <!-- Dashboard Title -->
+                        <div class="flex-shrink-0">
+                            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight drop-shadow-lg">
+                                Dashboard
+                            </h1>
+                        </div>
+                        
+                        <!-- Add Transaction Button -->
+                        <div class="flex-shrink-0">
+                            <button class="add-transaction-btn bg-gradient-to-r from-[#1de9b6] to-[#31a2fd] smooth-transition text-white px-3 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-3 rounded-full font-semibold shadow-lg hover:scale-105 hover:shadow-cyan-400/40 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 active:scale-95">
+                                <svg class="inline-block w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 4v16m8-8H4"/>
+                                </svg>
+                                <span class="text-xs sm:text-sm lg:text-base">Add Transaction</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 sm:mt-0 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 sm:mt-0 mb-6">
                 <!-- Balance Card -->
                 <div class="glass p-6 flex flex-col items-start">
                     <div class="flex items-center gap-2 text-blue-300 text-sm mb-1">
