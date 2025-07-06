@@ -62,7 +62,7 @@ body.dashboard {
 
 #features {
     opacity: 0;
-    top: -95%;
+    top: -96%;
     left: 50%;
     transform: translate(30px, 0) scale(0.95);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
