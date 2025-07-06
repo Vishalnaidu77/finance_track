@@ -203,7 +203,6 @@ select {
     width 0.4s ease,
     height 0.4s ease,
     transform 0.4s ease,
-    opacity 0.4s ease,
     background 0.4s,
     box-shadow 0.4s;
   transform: scale(1);
