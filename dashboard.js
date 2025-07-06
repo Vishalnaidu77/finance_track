@@ -1,3 +1,7 @@
+console.log('GSAP loaded:', typeof gsap !== 'undefined');
+console.log('GSAP version:', gsap.version);
+
+
 // Form visibility 
 let addBtn = document.querySelector(".add-transaction-btn");
 let transactionForm = document.querySelector(".transaction-form-div");
@@ -869,147 +873,147 @@ function resetFilters() {
     showNotification('Filters reset successfully!', 'success');
 }
 
-let isExpand = false;
-const expandBtn = document.querySelector('.expand-btn');
-const transactionDiv = document.querySelector('.transactionListDiv');
-const overlay = document.querySelector('.transaction-overlay');
+    let isExpand = false;
+    const expandBtn = document.querySelector('.expand-btn');
+    const transactionDiv = document.querySelector('.transactionListDiv');
+    const overlay = document.querySelector('.transaction-overlay');
 
-expandBtn.addEventListener('click', () => {
-    const isMobile = window.innerWidth <= 640;
-    
-    if (!isExpand) {
-        // Show overlay
-        overlay.style.display = 'block';
+    expandBtn.addEventListener('click', () => {
+        const isMobile = window.innerWidth <= 640;
         
-        // Disable CSS transitions to prevent conflicts with GSAP
-        transactionDiv.style.transition = 'none';
-        
-        // Modern fade out with scale and transform
-        gsap.to(transactionDiv, {
-            opacity: 0,
-            scale: 0.95,
-            y: 10,
-            duration: 0.25,
-            ease: "power2.in",
-            onComplete: () => {
-                transactionDiv.classList.add('expanded');
-                
-                if (isMobile) {
-                    list.classList.add('h-[70vh]');
-                } else {
-                    list.classList.add('h-[550px]');
-                }
-                
-                if (isMobile) {
-                    list.style.height = '70vh';
-                } else {
-                    list.style.height = '550px';
-                }
-                
-                gsap.set(transactionDiv, {
-                    opacity: 0,
-                    scale: 0.9,
-                    y: 20,
-                    clearProps: "transform"
-                });
-                
-                gsap.to(transactionDiv, {
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                    duration: 0.45,
-                    ease: "back.out(1.4)",
-                    onComplete: () => {
-                        transactionDiv.style.transition = '';
+        if (!isExpand) {
+            // Show overlay
+            overlay.style.display = 'block';
+            
+            // Disable CSS transitions to prevent conflicts with GSAP
+            transactionDiv.style.transition = 'none';
+            
+            // Modern fade out with scale and transform
+            gsap.to(transactionDiv, {
+                opacity: 0,
+                scale: 0.95,
+                y: 10,
+                duration: 0.25,
+                ease: "power2.in",
+                onComplete: () => {
+                    transactionDiv.classList.add('expanded');
+                    
+                    if (isMobile) {
+                        list.classList.add('h-[70vh]');
+                    } else {
+                        list.classList.add('h-[550px]');
                     }
-                });
-            }
-        });
-        
-        // Animate overlay with stagger
-        gsap.fromTo(overlay,
-            { opacity: 0 },
-            { 
-                opacity: 1, 
-                duration: 0.3,
-                ease: "power2.out"
-            }
-        );
-        
-    } else {
-        // Disable CSS transitions
-        transactionDiv.style.transition = 'none';
-        
-        // Modern collapse animation
-        gsap.to(transactionDiv, {
-            opacity: 0,
-            scale: 0.92,
-            y: -15,
-            duration: 0.25,
-            ease: "power2.in",
-            onComplete: () => {
-                // Remove expanded class
-                transactionDiv.classList.remove('expanded');
-                
-                // Remove responsive height classes
-                list.classList.remove('h-[550px]');
-                list.classList.remove('h-[70vh]');
-                
-                // Reset the transaction list div height to original
-                list.style.height = '';
-                
-                // Set initial state for return animation
-                gsap.set(transactionDiv, {
-                    opacity: 0,
-                    scale: 0.96,
-                    y: 10,
-                    clearProps: "transform"
-                });
-                
-                // Smooth return animation
-                gsap.to(transactionDiv, {
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                    duration: 0.35,
-                    ease: "power2.out",
-                    onComplete: () => {
-                        // Re-enable CSS transitions
-                        transactionDiv.style.transition = '';
-                        // Clear all GSAP properties
-                        gsap.set(transactionDiv, { 
-                            clearProps: "all" 
-                        });
+                    
+                    if (isMobile) {
+                        list.style.height = '70vh';
+                    } else {
+                        list.style.height = '550px';
                     }
-                });
-                
-                // Hide overlay
-                overlay.style.display = 'none';
-            }
-        });
-        
-        // Animate overlay out
-        gsap.to(overlay, {
-            opacity: 0,
-            duration: 0.35,
-            ease: "power2.in"
-        });
-    }
-    isExpand = !isExpand;
-});
+                    
+                    gsap.set(transactionDiv, {
+                        opacity: 0,
+                        scale: 0.9,
+                        y: 20,
+                        clearProps: "transform"
+                    });
+                    
+                    gsap.to(transactionDiv, {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        duration: 0.45,
+                        ease: "back.out(1.4)",
+                        onComplete: () => {
+                            transactionDiv.style.transition = '';
+                        }
+                    });
+                }
+            });
+            
+            // Animate overlay with stagger
+            gsap.fromTo(overlay,
+                { opacity: 0 },
+                { 
+                    opacity: 1, 
+                    duration: 0.3,
+                    ease: "power2.out"
+                }
+            );
+            
+        } else {
+            // Disable CSS transitions
+            transactionDiv.style.transition = 'none';
+            
+            // Modern collapse animation
+            gsap.to(transactionDiv, {
+                opacity: 0,
+                scale: 0.92,
+                y: -15,
+                duration: 0.25,
+                ease: "power2.in",
+                onComplete: () => {
+                    // Remove expanded class
+                    transactionDiv.classList.remove('expanded');
+                    
+                    // Remove responsive height classes
+                    list.classList.remove('h-[550px]');
+                    list.classList.remove('h-[70vh]');
+                    
+                    // Reset the transaction list div height to original
+                    list.style.height = '';
+                    
+                    // Set initial state for return animation
+                    gsap.set(transactionDiv, {
+                        opacity: 0,
+                        scale: 0.96,
+                        y: 10,
+                        clearProps: "transform"
+                    });
+                    
+                    // Smooth return animation
+                    gsap.to(transactionDiv, {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        duration: 0.35,
+                        ease: "power2.out",
+                        onComplete: () => {
+                            // Re-enable CSS transitions
+                            transactionDiv.style.transition = '';
+                            // Clear all GSAP properties
+                            gsap.set(transactionDiv, { 
+                                clearProps: "all" 
+                            });
+                        }
+                    });
+                    
+                    // Hide overlay
+                    overlay.style.display = 'none';
+                }
+            });
+            
+            // Animate overlay out
+            gsap.to(overlay, {
+                opacity: 0,
+                duration: 0.35,
+                ease: "power2.in"
+            });
+        }
+        isExpand = !isExpand;
+    });
 
-// Add some CSS for enhanced visual effects
-const style = document.createElement('style');
-style.textContent = `
-    .transactionListDiv {
-        will-change: transform, opacity;
-    }
-    
-    .transactionListDiv.expanded {
-        will-change: transform, opacity;
-    }
-`;
-document.head.appendChild(style);
+    // Add some CSS for enhanced visual effects
+    const style = document.createElement('style');
+    style.textContent = `
+        .transactionListDiv {
+            will-change: transform, opacity;
+        }
+        
+        .transactionListDiv.expanded {
+            will-change: transform, opacity;
+        }
+    `;
+    document.head.appendChild(style);
 
 
 // Optional: Close on overlay click
