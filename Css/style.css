@@ -282,7 +282,7 @@ select {
 
   #features {
     opacity: 0;
-    top: -140%;
+    top: -125%;
     padding-top: 22%;
     left: 50%;
     transform: translate(30px, 0) scale(0.95);
@@ -294,7 +294,5 @@ select {
     height: 6rem;
     display: flex;
   }
-
-
 }
   
