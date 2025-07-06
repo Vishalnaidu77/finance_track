@@ -889,7 +889,6 @@ expandBtn.addEventListener('click', () => {
             opacity: 0,
             scale: 0.95,
             y: 10,
-            top: 400,
             duration: 0.25,
             ease: "power2.in",
             onComplete: () => {
