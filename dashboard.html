@@ -123,7 +123,7 @@
                                 <!-- Type Filter -->
                                 <div class="flex-1">
                                     <label for="filter-type" class="block text-sm font-medium text-blue-200 mb-1">Transaction Type</label>
-                                    <select id="filter-type" class="filter-select w-full p-2 rounded-lg bg-[#263859] text-white border border-[#3a4a6b] focus:border-blue-400 focus:ring-blue-400">
+                                    <select id="filter-type" class="filter-select text-sm w-full p-2 rounded-lg bg-[#263859] text-white border border-[#3a4a6b] focus:border-blue-400 focus:ring-blue-400">
                                         <option value="all">All Types</option>
                                         <option value="income">Income</option>
                                         <option value="expense">Expense</option>
@@ -132,7 +132,7 @@
                                 <!-- Date Range Filter -->
                                 <div class="flex-1">
                                     <label for="filter-date" class="block text-sm font-medium text-blue-200 mb-1">Date Range</label>
-                                    <select id="filter-date" class="filter-select w-full p-2 rounded-lg bg-[#263859] text-white border border-[#3a4a6b] focus:border-blue-400 focus:ring-blue-400">
+                                    <select id="filter-date" class="filter-select text-sm w-full p-2 rounded-lg bg-[#263859] text-white border border-[#3a4a6b] focus:border-blue-400 focus:ring-blue-400">
                                         <option value="all">All Time</option>
                                         <option value="today">Today</option>
                                         <option value="week">This Week</option>
@@ -154,10 +154,10 @@
                             </div>
                             <!-- Filter Buttons -->
                             <div class="flex items-end gap-3">
-                                <button id="apply-filter" class="px-6 py-2 rounded-full text-white shadow-lg mt-2 bg-gradient-to-r from-[#1de9b6] to-[#31a2fd] hover:scale-105 transition">
+                                <button id="apply-filter" class="px-6 py-2 text-[14px] rounded-full text-white shadow-lg mt-2 bg-gradient-to-r from-[#1de9b6] to-[#31a2fd] hover:scale-105 transition">
                                     Apply Filter
                                 </button>
-                                <button id="reset-filter" class="px-6 py-2 rounded-full text-white shadow-lg mt-2 bg-gradient-to-r from-[#ff6b6b] to-[#ee5a52] hover:scale-105 transition">
+                                <button id="reset-filter" class="px-6 py-2 text-[14px] rounded-full text-white shadow-lg mt-2 bg-gradient-to-r from-[#ff6b6b] to-[#ee5a52] hover:scale-105 transition">
                                     Reset
                                 </button>
                             </div>
@@ -166,7 +166,7 @@
 
                     <!-- Transaction list  -->
                     <div class="transactionListDiv glass bg-[#10172a] backdrop-blur-md rounded-xl w-full sm:h-52 p-6 shadow-lg mt-6 lg:mt-0">
-                        <div class="text-lg font-semibold text-white mb-4 sm:mb-2 flex justify-between">
+                        <div class="text-md font-semibold text-white mb-4 sm:mb-2 flex justify-between">
                             <h2>Recent Transactions</h2>
                             <button class="expand-btn hover:scale-125 duration-100">
                                 <svg class="h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5858 5H14V3H21V10H19V6.41421L14.7071 10.7071L13.2929 9.29289L17.5858 5ZM3 14H5V17.5858L9.29289 13.2929L10.7071 14.7071L6.41421 19H10V21H3V14Z"></path></svg>
